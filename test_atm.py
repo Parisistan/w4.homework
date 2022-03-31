@@ -32,22 +32,30 @@ from unittest import TestCase
 
 class TestPinMockedInput(unittest.TestCase):
 
-    @patch('builtins.input', lambda x: "1223")
+
+    correct_pin = 1223
+
+    @patch('builtins.input', correct_pin)
     def test_with_valid_input(self):
         result = atm.validate_pin(1223)
-        self.assertTrue(result)
+        expected_result = True
+        self.assertTrue(result == expected_result)
         pass
 
     @patch('builtins.input', lambda x: "1111")
     def test_invalid_input_wrong_number(self):
         with self.assertRaises(ValueError):
             result = atm.validate_pin()
+            expected_result = False
+            self.assertTrue(result == expected_result)
             pass
 
     @patch('builtins.input', lambda x: "hi12")
     def test_invalid_input_non_numeric(self):
         with self.assertRaises(ValueError):
             result = atm.validate_pin()
+            expected_result = False
+            self.assertTrue(result == expected_result)
             pass
 
 
